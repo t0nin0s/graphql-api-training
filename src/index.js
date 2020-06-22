@@ -62,7 +62,8 @@ const typeDefs = gql`
   # The "Query" type is the root of all GraphQL queries.
   # (A "Mutation" type will be covered later on.)
   type Query {
-    trainings: [Training]
+    trainings: [Training],
+    discounts: [Discount]
   }
 
   type Training {
@@ -72,13 +73,20 @@ const typeDefs = gql`
     curriculum: String
   }
 
+  type Discount {
+    code: String
+    id: String
+    discountPercentage: Int
+  }
+
 `;
 
 // Resolvers define the technique for fetching the types in the
 // schema.  We'll retrieve books from the "books" array above.
 const resolvers = {
   Query: {
-    trainings: () => trainingMockData
+    trainings: fetchTrainings,
+    discounts: fetchDiscounts
   },
 };
 
